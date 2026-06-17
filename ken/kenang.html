@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kenangan alfis dan lily ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+--bg1:#0f172a;
+--bg2:#1e293b;
+--glass:rgba(255,255,255,0.08);
+--glass-border:rgba(255,255,255,0.14);
+--text:#ffffff;
+--muted:rgba(255,255,255,0.78);
+--accent1:#ff7eb3;
+--accent2:#ff758c;
+--shadow:0 20px 60px rgba(0,0,0,0.35);
+--radius:24px;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,var(--bg1),var(--bg2));
+overflow-x:hidden;
+color:var(--text);
+position:relative;
+}
+
+.hero{
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+text-align:center;
+padding:20px;
+}
+
+.hero h1{
+font-size:clamp(2.5rem, 5vw, 4.2rem);
+margin-bottom:12px;
+background:linear-gradient(45deg,var(--accent1),var(--accent2));
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+letter-spacing:0.5px;
+}
+
+.hero p{
+font-size:clamp(1rem, 2.2vw, 1.25rem);
+opacity:.85;
+max-width:720px;
+}
+
+.glass{
+background:var(--glass);
+backdrop-filter:blur(15px);
+-webkit-backdrop-filter:blur(15px);
+border:1px solid var(--glass-border);
+border-radius:var(--radius);
+padding:30px;
+box-shadow:var(--shadow);
+}
+
+.gallery{
+padding:80px 20px;
+max-width:1200px;
+margin:auto;
+}
+
+.gallery h2{
+text-align:center;
+margin-bottom:28px;
+font-size:clamp(1.8rem, 3.5vw, 2.6rem);
+letter-spacing:0.2px;
+}
+
+.slider{
+position:relative;
+height:clamp(320px, 55vh, 520px);
+overflow:hidden;
+border-radius:var(--radius);
+box-shadow:var(--shadow);
+transform:translateZ(0);
+}
+
+.slide{
+position:absolute;
+width:100%;
+height:100%;
+opacity:0;
+transition:800ms cubic-bezier(.2,.8,.2,1);
+transform:scale(1.02);
+}
+
+.slide.active{
+opacity:1;
+transform:scale(1);
+}
+
+.slide img{
+width:100%;
+height:100%;
+object-fit:cover;
+filter:saturate(1.05) contrast(1.02);
+}
+
+.slider::after{
+content:"";
+position:absolute;
+inset:0;
+background:linear-gradient(180deg, rgba(15,23,42,0.15) 0%, rgba(15,23,42,0.55) 70%, rgba(15,23,42,0.75) 100%);
+pointer-events:none;
+z-index:2;
+}
+
+.slider-ui{
+position:absolute;
+inset:0;
+z-index:3;
+pointer-events:none;
+}
+
+.slider-ui .nav{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+pointer-events:auto;
+width:48px;
+height:48px;
+border:none;
+border-radius:16px;
+cursor:pointer;
+background:rgba(255,255,255,0.12);
+backdrop-filter:blur(10px);
+-webkit-backdrop-filter:blur(10px);
+color:white;
+box-shadow:0 10px 30px rgba(0,0,0,0.25);
+transition:200ms ease;
+}
+
+.slider-ui .nav:hover{transform:translateY(-50%) scale(1.04); background:rgba(255,255,255,0.18);}
+.slider-ui .nav:active{transform:translateY(-50%) scale(0.98);}
+
+.slider-ui .nav.prev{left:16px;}
+.slider-ui .nav.next{right:16px;}
+
+.dots{
+position:absolute;
+bottom:18px;
+left:0;
+right:0;
+display:flex;
+justify-content:center;
+gap:10px;
+pointer-events:auto;
+}
+
+.dot{
+width:10px;
+height:10px;
+border-radius:999px;
+border:1px solid rgba(255,255,255,0.35);
+background:rgba(255,255,255,0.08);
+cursor:pointer;
+transition:200ms ease;
+}
+
+.dot.active{
+width:30px;
+background:linear-gradient(90deg,var(--accent1),var(--accent2));
+border-color:rgba(255,255,255,0.6);
+}
+
+.message{
+max-width:900px;
+margin:80px auto;
+padding:40px;
+}
+
+.message h2{
+margin-bottom:18px;
+text-align:center;
+}
+
+.typing{
+font-size:1.05rem;
+line-height:1.9;
+min-height:150px;
+padding:6px 4px;
+}
+
+.cursor{
+display:inline-block;
+width:10px;
+height:1.15em;
+transform:translateY(2px);
+background:rgba(255,255,255,0.55);
+border-radius:4px;
+margin-left:4px;
+animation:blink 900ms steps(2) infinite;
+}
+
+@keyframes blink{
+0%, 49%{opacity:1;}
+50%, 100%{opacity:0;}
+}
+
+.counter{
+text-align:center;
+padding:80px 20px;
+}
+
+.counter h2{
+font-size:2rem;
+margin-bottom:20px;
+}
+
+#days{
+font-size:clamp(2.6rem, 6vw, 4.1rem);
+font-weight:bold;
+color:var(--accent1);
+text-shadow:0 10px 40px rgba(255,126,179,0.25);
+}
+
+.music-btn{
+position:fixed;
+right:20px;
+bottom:20px;
+width:70px;
+height:70px;
+border:none;
+border-radius:50%;
+font-size:30px;
+cursor:pointer;
+background:linear-gradient(180deg,var(--accent2),var(--accent1));
+color:white;
+box-shadow:0 0 20px rgba(255,117,140,.6);
+z-index:999;
+transition:200ms ease;
+}
+
+.music-btn:hover{transform:translateY(-2px) scale(1.04); filter:saturate(1.1);}
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+pointer-events:none;
+z-index:0;
+}
+
+/* bring content above canvas */
+.hero,
+.gallery,
+.counter,
+.message{
+position:relative;
+z-index:1;
+}
+
+.fade{
+opacity:0;
+transform:translateY(30px);
+transition:900ms cubic-bezier(.2,.8,.2,1);
+}
+
+.fade.show{
+opacity:1;
+transform:translateY(0);
+}
+
+@media (max-width: 640px){
+.slider-ui .nav{width:44px;height:44px;border-radius:14px;}
+.music-btn{right:14px;bottom:14px;width:60px;height:60px;font-size:26px;}
+.gallery{padding:60px 16px;}
+.message{margin:60px auto; padding:26px;}
+}
+</style>
+</head>
+<body>
+
+<canvas id="heartCanvas"></canvas>
+
+<section class="hero">
+<div class="glass">
+<h1>AlfisTy ❤️ LilyPiww</h1>
+<p>Semua cerita indah yang akan selalu dikenang</p>
+</div>
+</section>
+
+<section class="gallery fade">
+<h2>📸 Album Kenangan — Versi Kita</h2>
+
+<div class="slider">
+<div class="slide active">
+<img src="aa.png" alt="Kenangan 1">
+</div>
+
+<div class="slide">
+<img src="b.png" alt="Kenangan 2">
+</div>
+
+<div class="slide">
+<img src="c.png" alt="Kenangan 3">
+</div>
+
+<div class="slide">
+<img src="d.png" alt="Kenangan 4">
+</div>
+
+<div class="slider-ui">
+<button class="nav prev" type="button" aria-label="Sebelumnya" onclick="prevSlide()">‹</button>
+<button class="nav next" type="button" aria-label="Berikutnya" onclick="nextSlide()">›</button>
+</div>
+
+<div class="dots" aria-label="Indikator slide">
+<div class="dot active" onclick="goToSlide(0)" role="button" aria-label="Slide 1"></div>
+<div class="dot" onclick="goToSlide(1)" role="button" aria-label="Slide 2"></div>
+<div class="dot" onclick="goToSlide(2)" role="button" aria-label="Slide 3"></div>
+<div class="dot" onclick="goToSlide(3)" role="button" aria-label="Slide 4"></div>
+</div>
+</div>
+</section>
+
+<section class="counter fade">
+<h2>Lama Kebersamaan Kita ✨</h2>
+<div id="days">0</div>
+<p>Hari Bersama ❤️</p>
+</section>
+
+<section class="message glass fade">
+<h2>💌 Pesan Untukmu</h2>
+<div class="typing" id="typing"></div>
+</section>
+
+<audio id="music" loop>
+<source src="musik.mp3" type="audio/mpeg">
+</audio>
+
+<button class="music-btn" onclick="toggleMusic()">🎵</button>
+
+<script>
+
+// SLIDER
+let slides=document.querySelectorAll('.slide');
+let index=0;
+let sliderTimer=null;
+
+function syncDots(){
+const dots=document.querySelectorAll('.dot');
+dots.forEach((d,i)=>{
+if(i===index) d.classList.add('active');
+else d.classList.remove('active');
+});
+}
+
+function showSlide(i){
+slides[index].classList.remove('active');
+index=(i+slides.length)%slides.length;
+slides[index].classList.add('active');
+syncDots();
+}
+
+function nextSlide(){
+showSlide(index+1);
+}
+
+function prevSlide(){
+showSlide(index-1);
+}
+
+function goToSlide(i){
+showSlide(i);
+}
+
+function startAuto(){
+if(sliderTimer) clearInterval(sliderTimer);
+sliderTimer=setInterval(()=>{
+nextSlide();
+},3000);
+}
+
+document.querySelectorAll('.slider-ui .nav').forEach(btn=>{
+btn.addEventListener('click', startAuto);
+});
+
+document.querySelectorAll('.dots .dot').forEach(dot=>{
+dot.addEventListener('click', startAuto);
+});
+
+syncDots();
+startAuto();
+
+// TYPING EFFECT
+const typingEl=document.getElementById('typing');
+typingEl.innerHTML='';
+
+let text=
+`Kamu adalah bagian favorit dari hidupku.
+
+Dari tawa kecil sampai momen paling berarti,
+kita pernah saling jaga, saling menguatkan,
+dan tumbuh bersama.
+
+Mungkin jarak bisa berubah,
+tapi kenangan ini tetap tinggal hangat di sini—
+di hati. ❤️`;
+
+
+let i=0;
+
+function typeWriter(){
+if(i<text.length){
+typingEl.innerHTML+=text.charAt(i);
+i++;
+setTimeout(typeWriter,40);
+}
+}
+typeWriter();
+
+// COUNTER HARI
+const startDate=new Date("2024-01-01");
+
+function updateDays(){
+const now=new Date();
+const diff=now-startDate;
+const days=Math.floor(diff/(1000*60*60*24));
+document.getElementById("days").innerText=days;
+}
+updateDays();
+
+// MUSIC
+const music=document.getElementById("music");
+let playing=false;
+
+function toggleMusic(){
+if(!playing){
+music.play();
+playing=true;
+}else{
+music.pause();
+playing=false;
+}
+}
+
+// SCROLL ANIMATION
+const observer=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add('show');
+}
+});
+});
+
+document.querySelectorAll('.fade').forEach(el=>{
+observer.observe(el);
+});
+
+// HEART PARTICLES
+const canvas=document.getElementById('heartCanvas');
+const ctx=canvas.getContext('2d');
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let hearts=[];
+
+class Heart{
+constructor(){
+this.x=Math.random()*canvas.width;
+this.y=canvas.height+20;
+this.size=Math.random()*20+10;
+this.speed=Math.random()*2+1;
+}
+
+draw(){
+ctx.fillStyle='rgba(255,118,171,0.7)';
+ctx.font=this.size+'px Arial';
+ctx.fillText('❤',this.x,this.y);
+}
+
+update(){
+this.y-=this.speed;
+this.draw();
+}
+}
+
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+if(Math.random()<0.05){
+hearts.push(new Heart());
+}
+
+hearts.forEach((heart,index)=>{
+heart.update();
+
+if(heart.y<-50){
+hearts.splice(index,1);
+}
+});
+
+requestAnimationFrame(animate);
+}
+
+animate();
+
+window.addEventListener('resize',()=>{
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+});
+
+</script>
+
+</body>
+</html>
